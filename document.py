@@ -12,7 +12,19 @@ class Document:
 
     @staticmethod
     def normalize_text(text: str) -> str:
-        return text.lower().replace(".", " ").replace(",", "").replace("\n", " ")
+        replace_chars = {
+            ".": " ",
+            "…": " ",
+            ",": " ",
+            "?": " ",
+            ":": " ",
+            "\n": " "
+        }
+
+        for source, dest in replace_chars.items():
+            text = text.replace(source, dest)
+
+        return text.lower()
 
     def __post_init__(self):
         self.content = self.normalize_text(self.content)
